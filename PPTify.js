@@ -227,6 +227,7 @@ var PPTify = (function () {
 		this._options.next_slide_attribute = this._options.next_slide_attribute || 'data-next-slide';
 		this._options.slide_transition_attribute = this._options.slide_transition_attribute || 'data-slide-transition';
 		this._options.auto_transition_attribute = this._options.auto_transition_attribute || 'data-auto-transition';
+		this._options.onload = this._options.onload || 'data-onload';
 		
 		this._isAnimating = false;
 		$(document).ready(_.bind(_ready, this));
@@ -308,7 +309,8 @@ var PPTify = (function () {
 		
 		var $current = $(this._options.slide + '#' + this._slide_seq[this._curr_seq]),
 			$prev = $(this._options.slide + '#' + this._slide_seq[--this._curr_seq]); 
-		var transition_animation = $prev.attr(this._options.slide_transition_attribute);
+		var transition_animation = $prev.attr(this._options.slide_transition_attribute),
+			onload = $prev.attr(this._options.onload);
 		
 		if(transition_animation) {
 			var _animation = TransitionAnimationSet[transition_animation]; 
@@ -343,6 +345,11 @@ var PPTify = (function () {
 			
 			this._isAnimating = false;
 		}
+		clearTimeout(autranTimer);
+		if(onload) {
+			console.log('execute function "'+onload+'"');
+			window[onload]();
+		}
 	};
 	
 	var autranTimer;
@@ -357,7 +364,8 @@ var PPTify = (function () {
 		var $current = $(this._options.slide + '#' + this._slide_seq[this._curr_seq]),
 			$next = $(this._options.slide + '#' + this._slide_seq[++this._curr_seq]);
 		var transition_animation = $current.attr(this._options.slide_transition_attribute),
-			auto_transition = $next.attr(this._options.auto_transition_attribute);	
+			auto_transition = $next.attr(this._options.auto_transition_attribute),
+			onload = $next.attr(this._options.onload);
 		
 		if(transition_animation) {
 			var _animation = TransitionAnimationSet[transition_animation]; 
@@ -400,6 +408,10 @@ var PPTify = (function () {
 			autranTimer = setTimeout(function() {
 				self.next();
 			},parseInt(auto_transition));
+		}
+		if(onload) {
+			console.log('execute function "'+onload+'"');
+			window[onload]();
 		}
 	};
 	
