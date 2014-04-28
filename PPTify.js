@@ -32,6 +32,18 @@ var PPTify = (function () {
 		},
 		'RotateUnfoldRight_Inside': {
 			'0%': { 'opacity': 0.3, 'transform': 'translateX(100%) rotateY(90deg)' }
+		},
+		'FlipTop_Outside': {
+			'100%': { 'opacity': 0.3, 'transform': 'translateZ(-1000px) rotateX(90deg)' }
+		},
+		'FlipTop_Inside': {
+			'0%': { 'opacity': 0.3, 'transform': 'translateZ(-1000px) rotateX(-90deg)' }
+		},
+		'FlipBottom_Outside': {
+			'100%': { 'opacity': 0.3, 'transform': 'translateZ(-1000px) rotateX(-90deg)' }
+		},
+		'FlipBottom_Inside': {
+			'0%': { 'opacity': 0.3, 'transform': 'translateZ(-1000px) rotateX(90deg)' }
 		}
 	};
 	
@@ -92,7 +104,7 @@ var PPTify = (function () {
 		if(name) this._animation.name = name;
 		if(duration) this._animation.duration = duration;
 		if(timing) this._animation.timing = timing;
-		if(delay) this._animation.delay = delay;
+		if(delay) this._animation.delay = delay || '0s';
 		if(iteration) this._animation.iteration = iteration;
 		if(fill_mode) this._animation.fill_mode = fill_mode;
 		if(play_state) this._animation.play_state = play_state;
@@ -151,9 +163,9 @@ var PPTify = (function () {
 			'-webkit-transform-origin': [this._transformOrigin.x, this._transformOrigin.y, this._transformOrigin.z].join(' '),
 			'-moz-transform-origin': [this._transformOrigin.x, this._transformOrigin.y, this._transformOrigin.z].join(' '),
 			'transform-origin': [this._transformOrigin.x, this._transformOrigin.y, this._transformOrigin.z].join(' '),
-			'-webkit-animation': [this._animation.name, this._animation.duration, this._animation.timing].join(' '),
-			'-moz-animation': [this._animation.name, this._animation.duration, this._animation.timing].join(' '),
-			'animation': [this._animation.name, this._animation.duration, this._animation.timing].join(' '),
+			'-webkit-animation': [this._animation.name, this._animation.duration, this._animation.timing, this._animation.delay].join(' '),
+			'-moz-animation': [this._animation.name, this._animation.duration, this._animation.timing, this._animation.delay].join(' '),
+			'animation': [this._animation.name, this._animation.duration, this._animation.timing, this._animation.delay].join(' '),
 			'z-index': (this._stayTop ? '999' : '')
 		};
 	};
@@ -163,9 +175,9 @@ var PPTify = (function () {
 			'-webkit-transform-origin': [this._transformOrigin.x, this._transformOrigin.y, this._transformOrigin.z].join(' '),
 			'-moz-transform-origin': [this._transformOrigin.x, this._transformOrigin.y, this._transformOrigin.z].join(' '),
 			'transform-origin': [this._transformOrigin.x, this._transformOrigin.y, this._transformOrigin.z].join(' '),
-			'-webkit-animation': [this._animation.name, this._animation.duration, this._animation.timing, 'reverse'].join(' '),
-			'-moz-animation': [this._animation.name, this._animation.duration, this._animation.timing, 'reverse'].join(' '),
-			'animation': [this._animation.name, this._animation.duration, this._animation.timing, 'reverse'].join(' '),
+			'-webkit-animation': [this._animation.name, this._animation.duration, this._animation.timing, this._animation.delay, 'reverse'].join(' '),
+			'-moz-animation': [this._animation.name, this._animation.duration, this._animation.timing, this._animation.delay, 'reverse'].join(' '),
+			'animation': [this._animation.name, this._animation.duration, this._animation.timing, this._animation.delay, 'reverse'].join(' '),
 			'z-index': (this._stayTop ? '999' : '')
 		};
 	};
@@ -214,6 +226,14 @@ var PPTify = (function () {
 		'OutToLeftFade_InFromUnfoldingRotationRight': { 
 			current: new SlideAnimation().animation('MoveToLeftFadeOut', '0.6s', 'ease', null, null, 'both'),
 			next: new SlideAnimation().translate3d().animation('RotateUnfoldRight_Inside', '0.6s', 'ease', null, null, 'both').transformOrigin('0%', '50%', '0').stayTop()
+		},
+		'FlipTop': {
+			current: new SlideAnimation().animation('FlipTop_Outside', '0.5s', 'ease-out', null, null, 'both').transformOrigin('50%', '50%', '0'),
+			next: new SlideAnimation().translate3d().animation('FlipTop_Inside', '0.5s', 'ease-out', '0.5s', null, 'both').transformOrigin('50%', '50%', '0')
+		},
+		'FlipBottom': {
+			current: new SlideAnimation().animation('FlipBottom_Outside', '0.5s', 'ease-out', null, null, 'both').transformOrigin('50%', '50%', '0'),
+			next: new SlideAnimation().translate3d().animation('FlipBottom_Inside', '0.5s', 'ease-out', '0.5s', null, 'both').transformOrigin('50%', '50%', '0')
 		}
 	};
 	
@@ -267,8 +287,8 @@ var PPTify = (function () {
 				'width': '100%',
 				'height': '100%',
 				'overflow': 'hidden',
-				'-webkit-perspective': '2000px',
-				'perspective': '2000px'
+				'-webkit-perspective': '1200px',
+				'perspective': '1200px'
 			});
 			
 			currentid = $elem.attr(this._options.next_slide_attribute);
