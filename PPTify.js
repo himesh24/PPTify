@@ -195,7 +195,7 @@ var PPTify = (function () {
 			current: new SlideAnimation().translate3d().animation('RotateCubeLeft_Outside', '0.6s', 'ease-in', null, null, 'both').transformOrigin('100%', '50%', '0'),
 			next: new SlideAnimation().translate3d().animation('RotateCubeLeft_Inside', '0.6s', 'ease-in', null, null, 'both').transformOrigin('0%', '50%', '0')			
 		},
-		'SideRotationLeft': {
+		'SidesRotationLeft': {
 			current: new SlideAnimation().translate3d().animation('RotateSideLeft_Outside', '0.6s', 'ease-in', null, null, 'both').transformOrigin('-50%', '50%', '0'),
 			next: new SlideAnimation().translate3d().animation('RotateSideLeft_Inside', '0.6s', 'ease-in', null, null, 'both').transformOrigin('150%', '50%', '0').stayTop()			
 		},
@@ -214,7 +214,7 @@ var PPTify = (function () {
 		'OutToLeftFade_InFromUnfoldingRotationRight': { 
 			current: new SlideAnimation().animation('MoveToLeftFadeOut', '0.6s', 'ease', null, null, 'both'),
 			next: new SlideAnimation().translate3d().animation('RotateUnfoldRight_Inside', '0.6s', 'ease', null, null, 'both').transformOrigin('0%', '50%', '0').stayTop()
-		},
+		}
 	};
 	
 	var pptify = function () { };
