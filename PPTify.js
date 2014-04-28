@@ -24,6 +24,14 @@ var PPTify = (function () {
 			'0%': { 'opacity': 0.3, 'transform': 'translateX(-100%) rotateY(-90deg)' },
 			'50%': { 'animation-timing-function': 'ease-out', 'transform': 'translateX(-50%) translateZ(-200px) rotateY(-45deg)' }
 		},
+		'RotateCubeTop_Outside': { 
+			'50%': { 'animation-timing-function': 'ease-out', 'transform': 'translateY(-50%) translateZ(-200px) rotateX(45deg)' },
+			'100%': { 'opacity': 0.3, 'transform': 'translateY(-100%) rotateX(90deg)' }
+		},
+		'RotateCubeTop_Inside': {
+			'0%': { 'opacity': 0.3, 'transform': 'translateY(100%) rotateX(-90deg)' },
+			'50%': { 'animation-timing-function': 'ease-out', 'transform': 'translateY(50%) translateZ(-200px) rotateX(-45deg)' }
+		},
 		'RotateSideLeft_Outside': {
 			'100%': { 'opacity': 0.3, 'transform': 'translateZ(-500px) rotateY(90deg)' }
 		},
@@ -214,6 +222,10 @@ var PPTify = (function () {
 		'CubicRotationRight': {
 			current: new SlideAnimation().translate3d().animation('RotateCubeRight_Outside', '0.6s', 'ease-in', null, null, 'both').transformOrigin('0%', '50%', '0'),
 			next: new SlideAnimation().translate3d().animation('RotateCubeRight_Inside', '0.6s', 'ease-in', null, null, 'both').transformOrigin('100%', '50%', '0')			
+		},
+		'CubicRotationTop': {
+			current: new SlideAnimation().translate3d().animation('RotateCubeTop_Outside', '0.6s', 'ease-in', null, null, 'both').transformOrigin('50%', '100%', '0').stayTop(),
+			next: new SlideAnimation().translate3d().animation('RotateCubeTop_Inside', '0.6s', 'ease-in', null, null, 'both').transformOrigin('50%', '0%', '0')			
 		},
 		'OutScaleDown_InFromRight': {
 			current: new SlideAnimation().animation('ScaleDown', '0.6s', 'ease', null, null, 'both'),
