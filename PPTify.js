@@ -8,6 +8,13 @@ var PPTify = (function () {
 		'MoveFromRight': { '0%': { 'transform': 'translateX(100%)' } },
 		'ScaleDown': { '100%': { 'opacity': 0.1, 'transform': 'scale(0.7)' } },
 		'ScaleUp': { '0%': { 'opacity': 0.1, 'transform': 'scale(0.7)' } },
+		'RotateFall': {
+			'0%': { 'transform': 'rotateZ(0deg)' },
+			'20%': { 'transform': 'rotateZ(10deg)', 'animation-timing-function': 'ease-out' },
+			'40%': { 'transform': 'rotateZ(17deg)' },
+			'60%': { 'transform': 'rotateZ(16deg)' },
+			'100%': { 'transform': 'rotateZ(17deg) translateY(100%)' },
+		},
 		'RotateCubeLeft_Outside': { 
 			'50%': { 'animation-timing-function': 'ease-out', 'transform': 'translateX(-50%) translateZ(-200px) rotateY(-45deg)' },
 			'100%': { 'opacity': 0.3, 'transform': 'translateX(-100%) rotateY(-90deg)' }
@@ -238,6 +245,10 @@ var PPTify = (function () {
 		'OutToLeftFade_InFromUnfoldingRotationRight': { 
 			current: new SlideAnimation().animation('MoveToLeftFadeOut', '0.6s', 'ease', null, null, 'both'),
 			next: new SlideAnimation().translate3d().animation('RotateUnfoldRight_Inside', '0.6s', 'ease', null, null, 'both').transformOrigin('0%', '50%', '0').stayTop()
+		},
+		'Fall': {
+			current: new SlideAnimation().animation('RotateFall', '1s', 'ease-in', null, null, 'both').transformOrigin('0%', '0%', '0').stayTop(),
+			next: new SlideAnimation().animation('ScaleUp', '0.6s', 'ease', null, null, 'both')
 		},
 		'FlipTop': {
 			current: new SlideAnimation().animation('FlipTop_Outside', '0.5s', 'ease-out', null, null, 'both').transformOrigin('50%', '50%', '0'),
